@@ -12,6 +12,7 @@ function moviesApi(app) {
 		const {tags} = req.query;
 
 		try {
+			//throw new Error("Error getting movies");
 			const movies = await moviesService.getMovies({
 				tags
 			});
