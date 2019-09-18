@@ -8,8 +8,6 @@ const { logErrors, wrapErrors,  errorHandler } = require("./utils/middleware/err
 const notFoundHandler = require("./utils/middleware/notFoundHandler.js");
 
 
-
-
 //body parser
 app.use(express.json());
 moviesApi(app);

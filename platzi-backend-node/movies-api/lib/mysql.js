@@ -22,11 +22,11 @@ class MysqlLib {
 		connection.query('SELECT id_section, section_name FROM sections LIMIT 12;', function (err, rows, fields) {
 		  if (err) throw err
 
-		  console.log('The result of the query is: ')
+		 /* console.log('The result of the query is: ')
 			console.log(rows.map(item => {
 				return item
 			})
-			)
+			) */
 		})
 
 		connection.end();

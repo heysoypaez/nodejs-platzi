@@ -1,6 +1,14 @@
 const express = require("express");
 const MoviesService = require("../services/movies.js");
 
+const {
+	movieIdSchema,
+	createMovieSchema,
+	updateMovieSchema
+} = require("../utils/schemas/movies.js");
+
+const validationHandler = require("../utils/middleware/validationHandler.js");
+
 function moviesApi(app) {
 	const router = express.Router();
 	app.use("/api/movies", router);
@@ -27,7 +35,7 @@ function moviesApi(app) {
 		}
 	});
 
-	router.get("/:movieId", async function(req,res,next) {
+	router.get("/:movieId", validationHandler({movieId:movieIdSchema}, "params") , async function(req,res,next) {
 		
 		const {movieId} = req.params;
 
@@ -44,24 +52,31 @@ function moviesApi(app) {
 		}
 	});
 
-	router.post("/", async function(req,res,next) {
-			
-		const {body: movie} = req;
+//Estoy colocando el middleware validation handler entre la ruta y el middleware final, asi mismo puedo colocar varios
 
-		try {
-			const createdMovieId = await moviesService.createMovie({movie});
+	router.post( "/", validationHandler({movieId:movieIdSchema}, "params") , 
+	   validationHandler(createMovieSchema, "body") , 
 
-			res.status(201).json({
-				data:createdMovieId,
-				message: "movie created"
-			});
-		}
-		catch(error) {
-			next(error);
-		}
-	});
+	   async function(req,res,next) {
+					
+				const {body: movie} = req;
 
-	router.put("/:movieId", async function(req,res,next) {
+				try {
+					const createdMovieId = await moviesService.createMovie({movie});
+
+					res.status(201).json({
+						data:createdMovieId,
+						message: "movie created"
+					});
+				}
+				catch(error) {
+					next(error);
+				}
+			}
+	);
+
+	router.put("/:movieId", validationHandler({movieId:movieIdSchema}, "params") , validationHandler(updateMovieSchema, "body") ,  
+	   async function(req,res,next) {
 		const {movieId} = req.params;
 		const {body: movie} = req;		
 		try {
@@ -93,7 +108,7 @@ function moviesApi(app) {
 		}
 	});
 
-	router.delete("/:movieId", async function(req,res,next) {
+	router.delete("/:movieId", validationHandler({movieId:movieIdSchema}, "params") , async function(req,res,next) {
 		const {movieId} = req.params;		
 		try {
 			const deletedMovieId = await moviesService.deleteMovie({movieId});
