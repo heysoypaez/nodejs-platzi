@@ -52,8 +52,6 @@ function moviesApi(app) {
 		}
 	});
 
-//Estoy colocando el middleware validation handler entre la ruta y el middleware final, asi mismo puedo colocar varios
-
 	router.post( "/", validationHandler({movieId:movieIdSchema}, "params") , 
 	   validationHandler(createMovieSchema, "body") , 
 
