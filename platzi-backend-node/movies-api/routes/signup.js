@@ -8,14 +8,14 @@ function callStaticFiles(req, res, next) {
 }
 
 function view(app) {
-	app.get("/login", (req, res) => {
-		res.sendFile(path.join(__dirname, "../public/views/login/"));
+	app.get("/signup", (req, res) => {
+		res.sendFile(path.join(__dirname, "../public/views/signup/"));
 	});
 }
 
 function postLogin(app) {
 	app.post(
-		"login",
+		"signUp",
 		passport.authenticate("local", { successFlash: "Welcome !" }),
 		function(req, res) {
 			res.redirect("/users/" + req.user.username);
@@ -23,8 +23,8 @@ function postLogin(app) {
 	);
 }
 
-function loginApi(app) {
+function signUpApi(app) {
 	view(app);
 }
 
-module.exports = loginApi;
+module.exports = signUpApi;
