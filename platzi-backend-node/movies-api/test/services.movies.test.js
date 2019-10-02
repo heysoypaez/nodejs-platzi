@@ -5,12 +5,11 @@ const {
 	getAllStub,
 	createStub,
 	MongoLibMock
-} = require("../mocks/mongoLib.js");
+} = require("../utils/mocks/mongoLib.js");
 
-const { moviesMock, filteredMoviesMock } = require("../mocks/movies.js");
-
+const { moviesMock, filteredMoviesMock } = require("../utils/mocks/movies.js");
 describe("Services - Movies", () => {
-	const MoviesServices = proxyquire("../../services/movies.js", {
+	const MoviesServices = proxyquire("../services/movies.js", {
 		"../lib/mongodb.js": MongoLibMock
 	});
 
