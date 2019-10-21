@@ -59,3 +59,8 @@ Node.js tiene una arquitectura orientada a eventos.
 
 Node.js es error first
 
+
+24. Diseña un buen backend.
+    1. Reparte rutas.
+        1. la unica responsabilidad de las rutas es saber como recibe parametros y como se los envia a los servicios.
+    2. la responsabilidad de los servicios es elegir que hacer con los parametros, con los datos y devolver la informacion requerida.

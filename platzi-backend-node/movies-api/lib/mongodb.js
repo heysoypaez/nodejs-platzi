@@ -6,9 +6,6 @@ const PASSWORD = encodeURIComponent(config.mongo.dbPassword);
 const DB_NAME = config.mongo.dbName;
 const HOST = config.mongo.dbHost;
 
-
-console.log( USER, PASSWORD, DB_NAME)
-
 const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB_NAME}?retryWrites=true&w=majority`;
 	
 
